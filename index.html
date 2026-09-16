@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Kas Kelas X-3 | Transparan & Akuntabel</title>
+  
+  <style>
+    /* =========================================================================
+       CSS MURNI STANDALONE - ZERO DEPENDENCY, CEPAT & RESPONSIF UNTUK GITHUB PAGES
+       ========================================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #059669;
+      --primary-hover: #047857;
+      --primary-light: #ecfdf5;
+      --primary-border: #a7f3d0;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --rose-50: #fff1f2;
+      --rose-100: #ffe4e6;
+      --rose-600: #e11d48;
+      --amber-50: #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-600: #d97706;
+      --amber-800: #92400e;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hidden { display: none !important; }
+    [style*="display: none"] { display: none !important; }
+
+    /* Header */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #059669, #0d9488);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 4px 6px -1px rgba(5, 150, 105, 0.25);
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--slate-500);
+    }
+
+    .badge-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .role-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-role-siswa {
+      background: var(--slate-100);
+      border: 1px solid var(--slate-200);
+      color: var(--slate-600);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-role-walas {
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      color: var(--primary-hover);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-dark { background: var(--slate-900); color: white; }
+    .btn-dark:hover { background: var(--slate-800); }
+    .btn-danger { background: var(--rose-50); color: var(--rose-600); border: 1px solid #fecdd3; }
+    .btn-danger:hover { background: var(--rose-100); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline { background: white; border: 1px solid var(--slate-200); color: var(--slate-700); }
+    .btn-outline:hover { background: var(--slate-50); }
+    .btn-icon {
+      padding: 8px;
+      background: transparent;
+      border: none;
+      color: var(--slate-500);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-icon:hover { background: var(--slate-100); color: var(--slate-800); }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--slate-100);
+      padding: 4px 0;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-500);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--slate-800); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Banner Pengingat Mode Siswa */
+    .banner-notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--amber-800);
+    }
+    .banner-notice strong { font-weight: 700; }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .card-gradient {
+      background: linear-gradient(135deg, #059669, #0f766e);
+      color: white;
+      border: none;
+      box-shadow: 0 8px 20px -4px rgba(5, 150, 105, 0.25);
+    }
+    .card-header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--slate-500);
+    }
+    .card-gradient .card-label { color: #d1fae5; }
+    .card-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .card-gradient .card-value { color: #ffffff; }
+    .card-desc {
+      font-size: 12px;
+      color: var(--slate-500);
+      margin-top: 6px;
+    }
+    .card-gradient .card-desc { color: rgba(255,255,255,0.85); }
+
+    /* Progress Box */
+    .progress-box {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 16px 20px;
+    }
+    .progress-bar-bg {
+      background: var(--slate-100);
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #10b981, #059669);
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* 2 Columns Section */
+    .dashboard-two-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .list-box {
+      max-height: 260px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    /* Toolbar Kas Masuk */
+    .toolbar {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .search-input {
+      padding: 8px 12px;
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      background: var(--slate-50);
+      font-size: 13px;
+      outline: none;
+      min-width: 180px;
+    }
+    .search-input:focus { background: white; border-color: var(--primary); }
+    .select-input {
+      padding: 8px 12px;
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      background: var(--slate-50);
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Spreadsheet Table */
+    .table-container {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .spreadsheet-scroll {
+      overflow-x: auto;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+    thead th {
+      background: #065f46;
+      color: white;
+      font-weight: 700;
+      padding: 12px 14px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      white-space: nowrap;
+      border-right: 1px solid #047857;
+    }
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--slate-200);
+      border-right: 1px solid var(--slate-200);
+      white-space: nowrap;
+    }
+    tbody tr:hover td { background-color: #f0fdf4 !important; }
+    tfoot td {
+      background: #e2e8f0;
+      font-weight: 800;
+      padding: 12px 14px;
+      position: sticky;
+      bottom: 0;
+      z-index: 30;
+      border-top: 2px solid var(--slate-300);
+      border-right: 1px solid var(--slate-300);
+    }
+
+    /* Freeze Panes */
+    .freeze-no {
+      position: sticky;
+      left: 0;
+      z-index: 20;
+      background: inherit;
+      width: 44px;
+      text-align: center;
+    }
+    thead th.freeze-no { z-index: 35; background: #047857; }
+    tfoot td.freeze-no { z-index: 35; background: #cbd5e1; }
+
+    .freeze-nama {
+      position: sticky;
+      left: 44px;
+      z-index: 20;
+      background: inherit;
+      min-width: 170px;
+      font-weight: 700;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.04);
+    }
+    thead th.freeze-nama { z-index: 35; background: #047857; }
+    tfoot td.freeze-nama { z-index: 35; background: #cbd5e1; }
+
+    /* Pill Badges */
+    .pill-lunas {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #d1fae5;
+      color: #065f46;
+      font-weight: 700;
+      font-size: 11px;
+      border: 1px solid #a7f3d0;
+    }
+    .pill-kurang {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 700;
+      font-size: 11px;
+      border: 1px solid #fde68a;
+    }
+    .pill-belum {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--slate-100);
+      color: var(--slate-400);
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 9999;
+    }
+    .modal-card {
+      background: white;
+      border-radius: 20px;
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: modalIn 0.2s ease-out;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title { font-size: 16px; font-weight: 800; color: var(--slate-900); }
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: var(--slate-400);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--slate-700); }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 12px; font-weight: 700; color: var(--slate-700); }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      font-size: 13px;
+      outline: none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      background: white;
+      border-color: var(--primary);
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 400px;
+    }
+    .toast-success { background: #059669; }
+    .toast-error { background: #e11d48; }
+    .toast-info { background: #1e293b; }
+
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid var(--slate-200);
+      padding: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--slate-400);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <div class="header-container">
+      <div class="header-row">
+        
+        <div class="brand">
+          <div class="brand-icon">X-3</div>
+          <div>
+            <div class="brand-title">
+              KAS KELAS X-3
+              <span id="connBadge" class="badge-status">
+                <span class="status-dot"></span>
+                <span id="connText">Online</span>
+              </span>
+            </div>
+            <div class="brand-subtitle">Pencatatan Kas Kelas Transparan & Akuntabel</div>
+          </div>
+        </div>
+
+        <div class="role-actions">
+          
+          <!-- Badge Siswa -->
+          <div id="badgeRoleSiswa" class="badge-role-siswa">
+            👁️ Mode Siswa (Hanya Lihat)
+          </div>
+
+          <!-- Badge Walas -->
+          <div id="badgeRoleWalas" class="badge-role-walas" style="display: none;">
+            ✓ Mode Walas (Akses Penuh)
+          </div>
+
+          <!-- Tombol Switch Role -->
+          <button id="btnToggleRole" onclick="handleRoleToggle()" type="button" class="btn btn-dark">
+            <span id="labelToggleRole">Masuk Mode Walas</span>
+          </button>
+
+          <!-- Refresh Data -->
+          <button onclick="loadData()" type="button" title="Muat Ulang Data dari Spreadsheet" class="btn-icon">
+            🔄
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Nav Tabs -->
+      <div class="nav-tabs">
+        <button onclick="switchTab('dashboard')" type="button" id="tabBtn-dashboard" class="tab-btn active">
+          📊 Dashboard Ringkasan
+        </button>
+        <button onclick="switchTab('kas-masuk')" type="button" id="tabBtn-kas-masuk" class="tab-btn">
+          📑 Matriks Kas Masuk (Spreadsheet)
+        </button>
+        <button onclick="switchTab('pengeluaran')" type="button" id="tabBtn-pengeluaran" class="tab-btn">
+          💸 Pengeluaran & Bukti Nota
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast-box toast-info" style="display: none;">
+      <span id="toastMessage">Pemberitahuan</span>
+      <button onclick="hideToast()" type="button" style="background:none; border:none; color:white; font-size:16px; cursor:pointer; margin-left:auto;">&times;</button>
+    </div>
+
+    <!-- Banner Pengingat Mode Siswa (Tanpa Bocoran Password) -->
+    <div id="bannerSiswaNotice" class="banner-notice">
+      <div>
+        <strong>Mode Siswa (Hanya Lihat):</strong> Anda dapat memantau saldo kas dan memeriksa catatan iuran siswa. Untuk menginput kas atau pengeluaran, silakan Masuk Mode Walas.
+      </div>
+      <button onclick="handleRoleToggle()" type="button" class="btn btn-dark" style="padding: 6px 12px; font-size: 11px; white-space: nowrap;">
+        Masuk Mode Walas
+      </button>
+    </div>
+
+    <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+    <div id="view-dashboard">
+      
+      <!-- 3 Kartu Saldo Utama -->
+      <div class="cards-grid">
+        
+        <!-- Saldo Kas -->
+        <div class="card card-gradient">
+          <div class="card-header-flex">
+            <span class="card-label">Sisa Saldo Kas Saat Ini</span>
+            <span>💰</span>
+          </div>
+          <div class="card-value" id="dashSaldo">Rp 0</div>
+          <div class="card-desc">Sisa kas yang tersedia di bendahara kelas X-3</div>
+        </div>
+
+        <!-- Total Kas Masuk -->
+        <div class="card">
+          <div class="card-header-flex">
+            <span class="card-label">Total Kas Terkumpul</span>
+            <span>📥</span>
+          </div>
+          <div class="card-value" id="dashMasuk" style="color: var(--primary);">Rp 0</div>
+          <div class="card-desc">Terkumpul dari 30 siswa kelas X-3</div>
+        </div>
+
+        <!-- Total Pengeluaran -->
+        <div class="card">
+          <div class="card-header-flex">
+            <span class="card-label">Total Pengeluaran</span>
+            <span>📤</span>
+          </div>
+          <div class="card-value" id="dashKeluar" style="color: var(--rose-600);">Rp 0</div>
+          <div class="card-desc"><span id="dashTotalTransaksiKeluar">0</span> transaksi tercatat dengan nota</div>
+        </div>
+
+      </div>
+
+      <!-- Box Progress Kelunasan -->
+      <div class="progress-box" style="margin-top: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 style="font-size: 14px; font-weight: 800; color: var(--slate-900);">Kelunasan Periode Aktif (<span id="dashActiveDate">-</span>)</h3>
+            <p style="font-size: 12px; color: var(--slate-500);">Target iuran: Rp <span id="dashTargetIuran">5.000</span> / siswa</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span id="dashLunasCount" class="pill-lunas">0 Lunas</span>
+            <span id="dashBelumCount" class="pill-kurang">0 Belum</span>
+          </div>
+        </div>
+
+        <div class="progress-bar-bg">
+          <div id="dashProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Dua Kolom Detail -->
+      <div class="dashboard-two-cols" style="margin-top: 16px;">
+        
+        <!-- Siswa Belum Bayar -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--slate-900);">⚠️ Belum Membayar (<span id="dashUnpaidLabelDate">-</span>)</h4>
+            <button onclick="switchTab('kas-masuk')" type="button" class="btn-icon" style="font-size: 11px; font-weight: 700; color: var(--primary);">Lihat Matriks &rarr;</button>
+          </div>
+          <div id="listUnpaidStudents" class="list-box">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- 3 Pengeluaran Terakhir -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--slate-900);">🧾 Pengeluaran Terakhir</h4>
+            <button onclick="switchTab('pengeluaran')" type="button" class="btn-icon" style="font-size: 11px; font-weight: 700; color: var(--primary);">Lihat Semua &rarr;</button>
+          </div>
+          <div id="listRecentExpenses" class="list-box">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== VIEW 2: MATRIKS KAS MASUK ==================== -->
+    <div id="view-kas-masuk" style="display: none;">
+      
+      <div class="toolbar">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <input type="text" id="searchStudent" oninput="renderKasMatrix()" placeholder="Cari nama siswa..." class="search-input">
+          <select id="filterStatus" onchange="renderKasMatrix()" class="select-input">
+            <option value="all">Semua Siswa (30)</option>
+            <option value="unpaid">Belum Lunas Periode Terakhir</option>
+            <option value="paid">Sudah Lunas Periode Terakhir</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button id="btnWalasAddDate" onclick="openModalAddDate()" type="button" class="btn btn-primary" style="display: none;">
+            + Tambah Kolom Tanggal
+          </button>
+          <button onclick="window.print()" type="button" class="btn btn-outline">
+            🖨️ Cetak Rekap
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--slate-600); margin: 8px 4px;">
+        <div style="display: flex; gap: 12px;">
+          <span>🟢 <strong style="color: #065f46;">Lunas</strong></span>
+          <span>🟡 <strong style="color: #92400e;">Kurang</strong></span>
+          <span>⚪ <strong style="color: var(--slate-500);">Belum</strong></span>
+        </div>
+        <div id="walasEditTip" style="display: none; color: var(--primary); font-weight: 700;">
+          💡 Mode Walas: Klik angka sel pada baris siswa untuk mengubah pembayaran!
+        </div>
+      </div>
+
+      <!-- Tabel Spreadsheet 1:1 -->
+      <div class="table-container">
+        <div class="spreadsheet-scroll">
+          <table>
+            <thead id="kasTableHeader">
+              <!-- Dynamically populated -->
+            </thead>
+            <tbody id="kasTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+            <tfoot id="kasTableFooter">
+              <!-- Dynamically populated -->
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <p style="text-align: center; font-size: 11px; color: var(--slate-400); margin-top: 8px;">
+        Struktur tabel di atas identik 1:1 dengan format baris siswa dan kolom tanggal di Google Sheets.
+      </p>
+
+    </div>
+
+    <!-- ==================== VIEW 3: PENGELUARAN & NOTA ==================== -->
+    <div id="view-pengeluaran" style="display: none;">
+      
+      <div class="toolbar">
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <input type="text" id="searchExpense" oninput="renderExpenses()" placeholder="Cari keperluan..." class="search-input">
+          <select id="filterExpenseCategory" onchange="renderExpenses()" class="select-input">
+            <option value="all">Semua Kategori</option>
+            <option value="ATK Kelas">ATK Kelas</option>
+            <option value="Kebersihan">Kebersihan</option>
+            <option value="Fotokopi">Fotokopi</option>
+            <option value="Konsumsi">Konsumsi</option>
+            <option value="Acara Kelas">Acara Kelas</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <button id="btnWalasAddExpense" onclick="openModalAddExpense()" type="button" class="btn btn-danger" style="display: none;">
+          + Catat Pengeluaran & Upload Nota
+        </button>
+      </div>
+
+      <div class="table-container">
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 40px; text-align: center;">No</th>
+                <th>Tanggal</th>
+                <th>Keperluan</th>
+                <th>Kategori</th>
+                <th style="text-align: right;">Nominal</th>
+                <th>Keterangan</th>
+                <th style="text-align: center;">Bukti Nota</th>
+                <th id="thExpenseAction" style="text-align: center; display: none;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="expenseTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==================== MODAL 1: LOGIN WALAS ==================== -->
+  <div id="modalLoginWalas" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">🔐 Masuk Mode Walas</h3>
+        <button onclick="closeModal('modalLoginWalas')" type="button" class="modal-close">&times;</button>
+      </div>
+      
+      <p style="font-size: 12px; color: var(--slate-600);">
+        Masukkan password Wali Kelas / Bendahara untuk membuka hak akses menginput kas, menambah tanggal, dan mencatat pengeluaran.
+      </p>
+
+      <form onsubmit="submitLoginWalas(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="form-group">
+          <label class="form-label">Password Walas</label>
+          <input type="password" id="inputWalasPassword" placeholder="Masukkan password..." required class="form-input">
+        </div>
+
+        <div id="loginErrorMsg" style="display: none; padding: 8px 12px; background: var(--rose-50); border: 1px solid #fecdd3; border-radius: 8px; color: var(--rose-600); font-size: 12px; font-weight: 700;">
+          Password salah! Silakan coba lagi.
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px;">
+          <button onclick="closeModal('modalLoginWalas')" type="button" class="btn btn-outline">Batal</button>
+          <button type="submit" id="btnSubmitLogin" class="btn btn-dark">Verifikasi & Masuk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: TAMBAH KOLOM TANGGAL ==================== -->
+  <div id="modalAddDate" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">📅 Tambah Kolom Tanggal/Bulan</h3>
+        <button onclick="closeModal('modalAddDate')" type="button" class="modal-close">&times;</button>
+      </div>
+
+      <p style="font-size: 12px; color: var(--slate-600);">
+        Kolom baru akan disisipkan ke matriks kas masuk sebelum kolom Total Dibayar.
+      </p>
+
+      <form onsubmit="submitAddDate(event)" style="display: flex; flex-direction: column; gap: 14px;">
+        <div class="form-group">
+          <label class="form-label">Pilih Tanggal</label>
+          <input type="date" id="inputDateCalendar" onchange="onDateCalendarChange()" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Judul Kolom</label>
+          <input type="text" id="inputDateLabel" placeholder="Contoh: 22/09/2026 atau Minggu 4 Sept" required class="form-input">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button onclick="closeModal('modalAddDate')" type="button" class="btn btn-outline">Batal</button>
+          <button type="submit" id="btnSubmitAddDate" class="btn btn-primary">Tambahkan Kolom</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: INPUT PENGELUARAN & NOTA ==================== -->
+  <div id="modalAddExpense" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">💸 Catat Pengeluaran & Upload Nota</h3>
+        <button onclick="closeModal('modalAddExpense')" type="button" class="modal-close">&times;</button>
+      </div>
+
+      <form onsubmit="submitAddExpense(event)" style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div class="form-group">
+            <label class="form-label">Tanggal</label>
+            <input type="date" id="inputExpDate" required class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kategori</label>
+            <select id="inputExpCategory" required class="form-select">
+              <option value="ATK Kelas">ATK Kelas</option>
+              <option value="Kebersihan">Kebersihan</option>
+              <option value="Fotokopi">Fotokopi</option>
+              <option value="Konsumsi">Konsumsi</option>
+              <option value="Acara Kelas">Acara Kelas</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keperluan / Barang</label>
+          <input type="text" id="inputExpTitle" placeholder="Contoh: Spidol Whiteboard 3 pcs" required class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nominal (Rp)</label>
+          <input type="number" id="inputExpAmount" min="500" step="500" placeholder="Contoh: 35000" required class="form-input" style="font-weight: 700;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keterangan Tambahan</label>
+          <textarea id="inputExpNotes" rows="2" placeholder="Catatan (opsional)..." class="form-textarea"></textarea>
+        </div>
+
+        <!-- File Upload Nota -->
+        <div class="form-group">
+          <label class="form-label">Foto Bukti Nota / Struk</label>
+          <div style="border: 2px dashed var(--slate-300); border-radius: 12px; padding: 14px; text-align: center; position: relative; background: var(--slate-50);">
+            <input type="file" id="inputExpFile" accept="image/*" onchange="handleFileSelect(event)" style="position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+            <div id="fileUploadPrompt">
+              <div style="font-size: 24px;">📷</div>
+              <div style="font-size: 12px; font-weight: 700; color: var(--slate-700);">Klik untuk foto nota / pilih gambar</div>
+              <div style="font-size: 11px; color: var(--slate-400);">Tersimpan otomatis ke Google Drive</div>
+            </div>
+            <div id="filePreviewContainer" style="display: none;">
+              <img id="imagePreview" src="" alt="Preview" style="max-height: 120px; border-radius: 8px; margin: 0 auto; display: block;">
+              <div id="previewFileName" style="font-size: 11px; font-weight: 700; color: var(--primary); margin-top: 6px;"></div>
+              <button onclick="removeSelectedFile(event)" type="button" style="background:none; border:none; color: var(--rose-600); font-size: 11px; cursor: pointer; text-decoration: underline;">Ganti Foto</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+          <button onclick="closeModal('modalAddExpense')" type="button" class="btn btn-outline">Batal</button>
+          <button type="submit" id="btnSubmitExpense" class="btn btn-primary" style="background: var(--rose-600);">Simpan Pengeluaran</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: EDIT SEL KAS ==================== -->
+  <div id="modalEditCell" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 360px;">
+      <div class="modal-header">
+        <h3 class="modal-title">✏️ Input Kas Siswa</h3>
+        <button onclick="closeModal('modalEditCell')" type="button" class="modal-close">&times;</button>
+      </div>
+
+      <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 12px; font-size: 12px;">
+        <div style="color: var(--slate-500);">Nama Siswa:</div>
+        <div id="modalCellStudentName" style="font-size: 14px; font-weight: 800; color: var(--slate-900);">-</div>
+        <div style="color: var(--slate-500); margin-top: 6px;">Kolom Tanggal:</div>
+        <div id="modalCellDateLabel" style="font-weight: 700; color: var(--primary);">-</div>
+      </div>
+
+      <form onsubmit="submitEditCell(event)" style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="form-group">
+          <label class="form-label">Nominal Kas (Rp)</label>
+          <input type="number" id="inputCellAmount" min="0" step="1000" placeholder="0" class="form-input" style="font-size: 16px; font-weight: 800;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+          <button onclick="setCellPreset(5000)" type="button" class="btn btn-outline" style="font-size: 11px; padding: 6px 4px; background: #ecfdf5; color: #065f46; border-color: #a7f3d0;">
+            Rp 5.000
+          </button>
+          <button onclick="setCellPreset(10000)" type="button" class="btn btn-outline" style="font-size: 11px; padding: 6px 4px; background: #ecfdf5; color: #065f46; border-color: #a7f3d0;">
+            Rp 10.000
+          </button>
+          <button onclick="setCellPreset(0)" type="button" class="btn btn-outline" style="font-size: 11px; padding: 6px 4px;">
+            Rp 0 (Belum)
+          </button>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px;">
+          <button onclick="closeModal('modalEditCell')" type="button" class="btn btn-outline">Batal</button>
+          <button type="submit" id="btnSubmitCell" class="btn btn-primary">Simpan ke Spreadsheet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: PREVIEW NOTA ==================== -->
+  <div id="modalViewReceipt" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <div>
+          <h3 id="receiptModalTitle" class="modal-title">Bukti Nota Pengeluaran</h3>
+          <p id="receiptModalSubtitle" style="font-size: 11px; color: var(--slate-500);">-</p>
+        </div>
+        <button onclick="closeModal('modalViewReceipt')" type="button" class="modal-close">&times;</button>
+      </div>
+
+      <div style="background: var(--slate-100); border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: center; min-height: 200px;">
+        <img id="receiptModalImage" src="" alt="Bukti Nota" style="max-height: 60vh; max-width: 100%; border-radius: 8px; object-fit: contain;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <a id="receiptDownloadLink" href="#" target="_blank" style="font-size: 12px; color: var(--primary); font-weight: 700; text-decoration: none;">
+          🔗 Buka Gambar Asli
+        </a>
+        <button onclick="closeModal('modalViewReceipt')" type="button" class="btn btn-dark">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    Sistem Kas Kelas X-3 &bull; Ditempatkan di GitHub Pages &bull; Terhubung ke Google Sheets
+  </footer>
+
+  <!-- =========================================================================
+       JAVASCRIPT LOGIC DENGAN AUTO-CONNECT PERMANEN KE GOOGLE APPS SCRIPT
+       ========================================================================= -->
+  <script>
+    // URL Web App Google Apps Script Terhubung Langsung untuk Seluruh Perangkat
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzmIDG-m6qncNm8kk-cKoVxiSQjSKUQ5fzK-LJaedoOGdanLdaASTH4nNuSvFcrqq8b-A/exec";
+
+    const SafeStorage = {
+      _mem: {},
+      get(key) {
+        try { return localStorage.getItem(key) || sessionStorage.getItem(key) || this._mem[key] || null; }
+        catch (e) { return this._mem[key] || null; }
+      },
+      set(key, val) {
+        try { localStorage.setItem(key, val); } catch (e) {}
+        this._mem[key] = val;
+      },
+      remove(key) {
+        try { localStorage.removeItem(key); sessionStorage.removeItem(key); } catch (e) {}
+        delete this._mem[key];
+      }
+    };
+
+    function formatRp(num) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num || 0);
+    }
+    function formatNumber(num) {
+      return new Intl.NumberFormat('id-ID').format(num || 0);
+    }
+
+    // Format tanggal header agar rapi (misal dari "Tue Sep 01 2026..." menjadi "01/09/2026")
+    function formatColDate(label) {
+      if (!label) return "-";
+      const str = String(label);
+      const d = new Date(str);
+      if (!isNaN(d.getTime()) && (str.includes("GMT") || str.includes("T00:"))) {
+        const dd = String(d.getDate()).padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const yyyy = d.getFullYear();
+        return `${dd}/${mm}/${yyyy}`;
+      }
+      return str;
+    }
+
+    const app = {
+      isWalas: false,
+      walasPassword: "",
+      currentTab: 'dashboard',
+      apiUrl: GAS_API_URL,
+
+      data: {
+        meta: { namaKelas: "X-3", targetIuran: 5000, totalSiswa: 30, saldoKas: 0, totalKasMasuk: 0, totalPengeluaran: 0 },
+        dateColumns: [],
+        students: [],
+        dateTotals: {},
+        expenses: []
+      },
+
+      uploadedFileBuffer: null,
+      activeEditingCell: null,
+
+      init() {
+        console.log("Kas Kelas X-3 Initializing with permanent Google Sheets URL...");
+        
+        // Pulihkan session Walas jika pernah login di perangkat ini
+        const savedPass = SafeStorage.get("walas_token");
+        if (savedPass) {
+          this.walasPassword = savedPass;
+          this.isWalas = true;
+          this.updateRoleUI();
+        }
+
+        // Langsung muat data real-time dari Google Sheets
+        this.loadData();
+      },
+
+      // Panggilan API Aman Universal (GET & POST)
+      async callApi(action, params = {}) {
+        try {
+          // Panggilan utama via GET query parameter (paling stabil & kebal CORS di semua browser HP/PC)
+          const queryParts = [`action=${encodeURIComponent(action)}`, `t=${Date.now()}`];
+          for (const key in params) {
+            if (key !== 'action' && typeof params[key] !== 'object') {
+              queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+            }
+          }
+
+          // Khusus jika ada payload besar (seperti upload bukti foto base64)
+          if (params.file && params.file.base64) {
+            const postBody = JSON.stringify({ action: action, ...params });
+            const res = await fetch(this.apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: postBody
+            });
+            return await res.json();
+          }
+
+          const fullUrl = `${this.apiUrl}?${queryParts.join("&")}`;
+          const res = await fetch(fullUrl, { method: "GET" });
+          return await res.json();
+        } catch (e) {
+          console.warn("Fetch error:", e);
+          return null;
+        }
+      },
+
+      async loadData() {
+        document.getElementById("connText").textContent = "Menyinkronkan...";
+        const res = await this.callApi("getInitialData");
+        if (res && res.success && res.data) {
+          this.data = res.data;
+          this.renderAll();
+          document.getElementById("connText").textContent = "Terhubung Sheets";
+          this.showToast("Data kas kelas berhasil disinkronkan dari Google Sheets!", "success");
+        } else {
+          document.getElementById("connText").textContent = "Terhubung";
+        }
+      },
+
+      updateRoleUI() {
+        const badgeSiswa = document.getElementById("badgeRoleSiswa");
+        const badgeWalas = document.getElementById("badgeRoleWalas");
+        const btnToggle = document.getElementById("btnToggleRole");
+        const labelToggle = document.getElementById("labelToggleRole");
+        const btnAddDate = document.getElementById("btnWalasAddDate");
+        const btnAddExp = document.getElementById("btnWalasAddExpense");
+        const thExpAction = document.getElementById("thExpenseAction");
+        const walasEditTip = document.getElementById("walasEditTip");
+        const bannerSiswaNotice = document.getElementById("bannerSiswaNotice");
+
+        if (this.isWalas) {
+          badgeSiswa.style.display = "none";
+          badgeWalas.style.display = "flex";
+          btnAddDate.style.display = "inline-flex";
+          btnAddExp.style.display = "inline-flex";
+          thExpAction.style.display = "table-cell";
+          walasEditTip.style.display = "block";
+          bannerSiswaNotice.style.display = "none";
+
+          labelToggle.textContent = "Keluar Mode Walas";
+          btnToggle.className = "btn btn-danger";
+        } else {
+          badgeSiswa.style.display = "flex";
+          badgeWalas.style.display = "none";
+          btnAddDate.style.display = "none";
+          btnAddExp.style.display = "none";
+          thExpAction.style.display = "none";
+          walasEditTip.style.display = "none";
+          bannerSiswaNotice.style.display = "flex";
+
+          labelToggle.textContent = "Masuk Mode Walas";
+          btnToggle.className = "btn btn-dark";
+        }
+
+        this.renderKasMatrix();
+        this.renderExpenses();
+      },
+
+      handleRoleToggle() {
+        if (this.isWalas) {
+          this.isWalas = false;
+          this.walasPassword = "";
+          SafeStorage.remove("walas_token");
+          this.showToast("Anda sekarang dalam Mode Siswa (Hanya Lihat).", "info");
+          this.updateRoleUI();
+        } else {
+          document.getElementById("inputWalasPassword").value = "";
+          document.getElementById("loginErrorMsg").style.display = "none";
+          this.openModal("modalLoginWalas");
+          setTimeout(() => document.getElementById("inputWalasPassword").focus(), 100);
+        }
+      },
+
+      async submitLoginWalas(e) {
+        if (e) e.preventDefault();
+        const inputPass = document.getElementById("inputWalasPassword").value.trim();
+        const btn = document.getElementById("btnSubmitLogin");
+        const errMsg = document.getElementById("loginErrorMsg");
+
+        btn.disabled = true;
+        btn.textContent = "Memverifikasi...";
+
+        // Verifikasi langsung password Walas
+        if (inputPass === "kelashebat") {
+          btn.disabled = false;
+          btn.textContent = "Verifikasi & Masuk";
+          app.walasPassword = inputPass;
+          app.isWalas = true;
+          SafeStorage.set("walas_token", inputPass);
+          app.closeModal("modalLoginWalas");
+          app.showToast("Mode Walas Berhasil Diaktifkan! Akses input terbuka.", "success");
+          app.updateRoleUI();
+          return;
+        }
+
+        // Cek ke server spreadsheet
+        const res = await this.callApi("verifyWalas", { password: inputPass });
+        btn.disabled = false;
+        btn.textContent = "Verifikasi & Masuk";
+        if (res && res.success) {
+          app.walasPassword = inputPass;
+          app.isWalas = true;
+          SafeStorage.set("walas_token", inputPass);
+          app.closeModal("modalLoginWalas");
+          app.showToast("Mode Walas Berhasil Diaktifkan!", "success");
+          app.updateRoleUI();
+        } else {
+          errMsg.style.display = "block";
+        }
+      },
+
+      switchTab(tabName) {
+        this.currentTab = tabName;
+        ['dashboard', 'kas-masuk', 'pengeluaran'].forEach(t => {
+          const view = document.getElementById(`view-${t}`);
+          const btn = document.getElementById(`tabBtn-${t}`);
+          if (t === tabName) {
+            view.style.display = "block";
+            btn.className = "tab-btn active";
+          } else {
+            view.style.display = "none";
+            btn.className = "tab-btn";
+          }
+        });
+      },
+
+      renderAll() {
+        this.renderDashboard();
+        this.renderKasMatrix();
+        this.renderExpenses();
+      },
+
+      renderDashboard() {
+        const meta = this.data.meta || {};
+        document.getElementById("dashSaldo").textContent = formatRp(meta.saldoKas);
+        document.getElementById("dashMasuk").textContent = formatRp(meta.totalKasMasuk);
+        document.getElementById("dashKeluar").textContent = formatRp(meta.totalPengeluaran);
+        document.getElementById("dashTotalTransaksiKeluar").textContent = (this.data.expenses || []).length;
+        document.getElementById("dashTargetIuran").textContent = formatNumber(meta.targetIuran || 5000);
+
+        const dateCols = this.data.dateColumns || [];
+        const lastDateCol = dateCols.length > 0 ? dateCols[dateCols.length - 1].label : "-";
+        const formattedLastDate = formatColDate(lastDateCol);
+        document.getElementById("dashActiveDate").textContent = formattedLastDate;
+        document.getElementById("dashUnpaidLabelDate").textContent = formattedLastDate;
+
+        let lunasCount = 0;
+        let unpaidStudents = [];
+        const target = meta.targetIuran || 5000;
+
+        if (lastDateCol !== "-") {
+          (this.data.students || []).forEach(st => {
+            const val = (st.payments && st.payments[lastDateCol]) || 0;
+            if (val >= target) {
+              lunasCount++;
+            } else {
+              unpaidStudents.push({ nama: st.nama, no: st.no, kurang: target - val });
+            }
+          });
+        }
+
+        const totalSiswa = (this.data.students || []).length || 30;
+        const belumCount = totalSiswa - lunasCount;
+        const percent = totalSiswa > 0 ? Math.round((lunasCount / totalSiswa) * 100) : 0;
+
+        document.getElementById("dashLunasCount").textContent = `${lunasCount} Lunas`;
+        document.getElementById("dashBelumCount").textContent = `${belumCount} Belum`;
+        document.getElementById("dashProgressBar").style.width = `${percent}%`;
+
+        // Belum bayar list
+        const listUnpaidEl = document.getElementById("listUnpaidStudents");
+        if (unpaidStudents.length === 0) {
+          listUnpaidEl.innerHTML = `<div style="text-align: center; padding: 20px; font-size: 12px; color: var(--primary);">🎉 Seluruh 30 siswa sudah lunas pada periode ini!</div>`;
+        } else {
+          listUnpaidEl.innerHTML = unpaidStudents.map(st => `
+            <div class="list-item">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: bold; color: var(--slate-400); width: 20px;">#${st.no}</span>
+                <span style="font-weight: 700; color: var(--slate-800);">${st.nama}</span>
+              </div>
+              <span class="pill-kurang">Kurang ${formatRp(st.kurang)}</span>
+            </div>
+          `).join("");
+        }
+
+        // Pengeluaran list
+        const listRecentExpEl = document.getElementById("listRecentExpenses");
+        const recentExpenses = (this.data.expenses || []).slice(0, 3);
+
+        if (recentExpenses.length === 0) {
+          listRecentExpEl.innerHTML = `<div style="text-align: center; padding: 20px; font-size: 12px; color: var(--slate-400);">Belum ada data pengeluaran.</div>`;
+        } else {
+          listRecentExpEl.innerHTML = recentExpenses.map(exp => `
+            <div class="list-item">
+              <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
+                ${exp.urlNota ? `
+                  <button type="button" onclick="previewReceipt('${exp.urlNota}', '${exp.keperluan}', '${exp.tanggal} - ${formatRp(exp.nominal)}')" style="border: 1px solid var(--slate-200); border-radius: 6px; padding: 0; background: none; cursor: pointer; flex-shrink: 0;">
+                    <img src="${exp.urlNota}" alt="Nota" style="width: 36px; height: 36px; border-radius: 6px; object-fit: cover; display: block;">
+                  </button>
+                ` : `<div style="width: 36px; height: 36px; border-radius: 6px; background: var(--slate-100); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">🧾</div>`}
+                <div style="overflow: hidden; text-overflow: ellipsis;">
+                  <div style="font-weight: 700; color: var(--slate-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${exp.keperluan}</div>
+                  <div style="font-size: 11px; color: var(--slate-500);">${exp.tanggal} &bull; ${exp.kategori}</div>
+                </div>
+              </div>
+              <div style="font-weight: 800; color: var(--rose-600); flex-shrink: 0; margin-left: 8px;">${formatRp(exp.nominal)}</div>
+            </div>
+          `).join("");
+        }
+      },
+
+      renderKasMatrix() {
+        const thead = document.getElementById("kasTableHeader");
+        const tbody = document.getElementById("kasTableBody");
+        const tfoot = document.getElementById("kasTableFooter");
+
+        const dateCols = this.data.dateColumns || [];
+        const students = this.data.students || [];
+        const dateTotals = this.data.dateTotals || {};
+        const target = this.data.meta.targetIuran || 5000;
+
+        const searchQuery = (document.getElementById("searchStudent")?.value || "").toLowerCase();
+        const filterStatus = document.getElementById("filterStatus")?.value || "all";
+        const lastDate = dateCols.length > 0 ? dateCols[dateCols.length - 1].label : "";
+
+        let headerHtml = `
+          <tr>
+            <th class="freeze-no">No</th>
+            <th class="freeze-nama">Nama Siswa (Kelas X-3)</th>
+        `;
+        dateCols.forEach(col => {
+          headerHtml += `<th style="text-align: center; min-width: 100px;">${formatColDate(col.label)}</th>`;
+        });
+        headerHtml += `<th style="text-align: right; min-width: 120px;">Total Dibayar</th></tr>`;
+        thead.innerHTML = headerHtml;
+
+        let rowsHtml = "";
+        let visibleCount = 0;
+
+        students.forEach((st, sIdx) => {
+          if (searchQuery && !st.nama.toLowerCase().includes(searchQuery)) return;
+          if (filterStatus === "unpaid" && lastDate) {
+            if ((st.payments[lastDate] || 0) >= target) return;
+          } else if (filterStatus === "paid" && lastDate) {
+            if ((st.payments[lastDate] || 0) < target) return;
+          }
+
+          visibleCount++;
+          const rowBg = sIdx % 2 === 0 ? "#ffffff" : "#f8fafc";
+
+          rowsHtml += `
+            <tr style="background: ${rowBg};">
+              <td class="freeze-no" style="font-weight: bold; color: var(--slate-400); background: inherit;">${st.no}</td>
+              <td class="freeze-nama" style="background: inherit;">${st.nama}</td>
+          `;
+
+          dateCols.forEach(col => {
+            const amount = (st.payments && st.payments[col.label]) || 0;
+            let badgeHtml = "";
+
+            if (amount >= target) badgeHtml = `<span class="pill-lunas">${formatNumber(amount)}</span>`;
+            else if (amount > 0) badgeHtml = `<span class="pill-kurang">${formatNumber(amount)}</span>`;
+            else badgeHtml = `<span class="pill-belum">-</span>`;
+
+            if (app.isWalas) {
+              rowsHtml += `
+                <td onclick="openEditCell(${st.rowNumber}, ${col.index}, '${st.nama}', '${col.label}', ${amount})" 
+                    style="text-align: center; cursor: pointer;" 
+                    title="Klik untuk ubah kas ${st.nama}">
+                  ${badgeHtml} ✏️
+                </td>
+              `;
+            } else {
+              rowsHtml += `
+                <td onclick="handleSiswaCellClick('${st.nama}')" 
+                    style="text-align: center; cursor: pointer;" 
+                    title="Mode Siswa (Hanya Lihat)">
+                  ${badgeHtml}
+                </td>
+              `;
+            }
+          });
+
+          rowsHtml += `
+              <td style="text-align: right; font-weight: 800; color: var(--slate-900); background: #f0fdf4;">
+                ${formatRp(st.totalPaid)}
+              </td>
+            </tr>
+          `;
+        });
+
+        if (visibleCount === 0) {
+          rowsHtml = `<tr><td colspan="${dateCols.length + 3}" style="text-align: center; padding: 24px; color: var(--slate-400);">Tidak ada siswa ditemukan.</td></tr>`;
+        }
+        tbody.innerHTML = rowsHtml;
+
+        let footerHtml = `<tr><td class="freeze-no">#</td><td class="freeze-nama">TOTAL KAS MASUK</td>`;
+        let grandTotal = 0;
+        dateCols.forEach(col => {
+          const colTot = dateTotals[col.label] || 0;
+          grandTotal += colTot;
+          footerHtml += `<td style="text-align: center; color: #065f46; font-weight: 800;">${formatRp(colTot)}</td>`;
+        });
+        footerHtml += `<td style="text-align: right; color: #065f46; font-weight: 900; background: #d1fae5;">${formatRp(grandTotal)}</td></tr>`;
+        tfoot.innerHTML = footerHtml;
+      },
+
+      handleSiswaCellClick(studentName) {
+        this.showToast(`Mode Siswa (Hanya Lihat): Untuk mengedit kas ${studentName}, silakan Masuk Mode Walas.`, "info");
+      },
+
+      renderExpenses() {
+        const tbody = document.getElementById("expenseTableBody");
+        const expenses = this.data.expenses || [];
+        const searchQuery = (document.getElementById("searchExpense")?.value || "").toLowerCase();
+        const categoryFilter = document.getElementById("filterExpenseCategory")?.value || "all";
+
+        let html = "";
+        let count = 0;
+
+        expenses.forEach((exp, idx) => {
+          if (searchQuery && !exp.keperluan.toLowerCase().includes(searchQuery) && !exp.keterangan.toLowerCase().includes(searchQuery)) return;
+          if (categoryFilter !== "all" && exp.kategori !== categoryFilter) return;
+
+          count++;
+          html += `
+            <tr>
+              <td style="text-align: center; color: var(--slate-400);">${idx + 1}</td>
+              <td style="font-weight: 600;">${exp.tanggal}</td>
+              <td style="font-weight: 700; color: var(--slate-900);">${exp.keperluan}</td>
+              <td><span style="font-size: 11px; font-weight: 600; padding: 2px 8px; background: var(--slate-100); border-radius: 999px;">${exp.kategori}</span></td>
+              <td style="text-align: right; font-weight: 800; color: var(--rose-600);">${formatRp(exp.nominal)}</td>
+              <td style="font-size: 11px; color: var(--slate-600); max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${exp.keterangan || '-'}</td>
+              <td style="text-align: center;">
+                ${exp.urlNota ? `
+                  <button type="button" onclick="previewReceipt('${exp.urlNota}', '${exp.keperluan}', '${exp.tanggal} - ${formatRp(exp.nominal)}')" class="btn btn-outline" style="padding: 4px 8px; font-size: 11px;">
+                    👁️ Lihat Nota
+                  </button>
+                ` : `<span style="color: var(--slate-400); font-size: 11px;">Tanpa Nota</span>`}
+              </td>
+          `;
+
+          if (this.isWalas) {
+            html += `
+              <td style="text-align: center;">
+                <button type="button" onclick="deleteExpenseConfirm('${exp.id}', '${exp.keperluan}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 11px;">
+                  🗑️ Hapus
+                </button>
+              </td>
+            `;
+          }
+          html += `</tr>`;
+        });
+
+        if (count === 0) {
+          html = `<tr><td colspan="${this.isWalas ? 8 : 7}" style="text-align: center; padding: 24px; color: var(--slate-400);">Belum ada data pengeluaran.</td></tr>`;
+        }
+        tbody.innerHTML = html;
+      },
+
+      openModal(modalId) {
+        const el = document.getElementById(modalId);
+        if (el) el.style.display = "flex";
+      },
+      closeModal(modalId) {
+        const el = document.getElementById(modalId);
+        if (el) el.style.display = "none";
+      },
+
+      openEditCell(studentRow, dateColIndex, studentName, dateLabel, currentAmount) {
+        if (!this.isWalas) { this.handleRoleToggle(); return; }
+        this.activeEditingCell = { studentRow, dateColIndex, studentName, dateLabel };
+        document.getElementById("modalCellStudentName").textContent = studentName;
+        document.getElementById("modalCellDateLabel").textContent = formatColDate(dateLabel);
+        document.getElementById("inputCellAmount").value = currentAmount || "";
+        this.openModal("modalEditCell");
+        setTimeout(() => document.getElementById("inputCellAmount").focus(), 100);
+      },
+
+      setCellPreset(amt) { document.getElementById("inputCellAmount").value = amt; },
+
+      async submitEditCell(e) {
+        if (e) e.preventDefault();
+        if (!this.activeEditingCell) return;
+
+        const amount = Number(document.getElementById("inputCellAmount").value) || 0;
+        const { studentRow, dateColIndex, studentName, dateLabel } = this.activeEditingCell;
+        const btn = document.getElementById("btnSubmitCell");
+
+        btn.disabled = true;
+        btn.textContent = "Menyimpan...";
+
+        const res = await this.callApi("saveKasCell", {
+          password: this.walasPassword,
+          studentRow: studentRow,
+          dateColIndex: dateColIndex,
+          amount: amount
+        });
+
+        btn.disabled = false;
+        btn.textContent = "Simpan ke Spreadsheet";
+
+        if (res && res.success) {
+          app.updateLocalKasCell(studentRow, dateLabel, amount);
+          app.closeModal("modalEditCell");
+          app.showToast(`Kas ${studentName} berhasil disimpan ke Google Sheets!`, "success");
+        } else {
+          app.showToast("Gagal menyimpan ke spreadsheet: " + (res ? res.message : "Koneksi terganggu"), "error");
+        }
+      },
+
+      updateLocalKasCell(studentRow, dateLabel, amount) {
+        const student = this.data.students.find(s => s.rowNumber === studentRow);
+        if (student) {
+          student.payments[dateLabel] = amount;
+          student.totalPaid = Object.values(student.payments).reduce((a, b) => a + b, 0);
+
+          let dateSum = 0;
+          this.data.students.forEach(s => dateSum += (s.payments[dateLabel] || 0));
+          this.data.dateTotals[dateLabel] = dateSum;
+
+          let totalMasuk = 0;
+          this.data.students.forEach(s => totalMasuk += s.totalPaid);
+          this.data.meta.totalKasMasuk = totalMasuk;
+          this.data.meta.saldoKas = totalMasuk - this.data.meta.totalPengeluaran;
+
+          this.renderAll();
+        }
+      },
+
+      openModalAddDate() {
+        if (!this.isWalas) { this.handleRoleToggle(); return; }
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById("inputDateCalendar").value = today;
+        this.onDateCalendarChange();
+        this.openModal("modalAddDate");
+      },
+
+      onDateCalendarChange() {
+        const calVal = document.getElementById("inputDateCalendar").value;
+        if (calVal) {
+          const parts = calVal.split('-');
+          document.getElementById("inputDateLabel").value = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+      },
+
+      async submitAddDate(e) {
+        if (e) e.preventDefault();
+        const dateLabel = document.getElementById("inputDateLabel").value.trim();
+        if (!dateLabel) return;
+
+        if (this.data.dateColumns.some(c => c.label === dateLabel)) {
+          alert(`Kolom tanggal "${dateLabel}" sudah ada!`);
+          return;
+        }
+
+        const btn = document.getElementById("btnSubmitAddDate");
+        btn.disabled = true;
+        btn.textContent = "Menyisipkan Kolom...";
+
+        const res = await this.callApi("addNewPeriodColumn", {
+          password: this.walasPassword,
+          dateLabel: dateLabel
+        });
+
+        btn.disabled = false;
+        btn.textContent = "Tambahkan Kolom";
+
+        if (res && res.success) {
+          app.data.dateColumns.push({ index: res.newColIndex, label: dateLabel });
+          app.data.students.forEach(s => s.payments[dateLabel] = 0);
+          app.data.dateTotals[dateLabel] = 0;
+          app.closeModal("modalAddDate");
+          app.renderAll();
+          app.showToast(`Kolom "${dateLabel}" berhasil disisipkan di Google Sheets!`, "success");
+        } else {
+          app.showToast("Gagal: " + (res ? res.message : "Error"), "error");
+        }
+      },
+
+      openModalAddExpense() {
+        if (!this.isWalas) { this.handleRoleToggle(); return; }
+        document.getElementById("inputExpDate").value = new Date().toISOString().split('T')[0];
+        document.getElementById("inputExpTitle").value = "";
+        document.getElementById("inputExpCategory").value = "ATK Kelas";
+        document.getElementById("inputExpAmount").value = "";
+        document.getElementById("inputExpNotes").value = "";
+        this.removeSelectedFile();
+        this.openModal("modalAddExpense");
+      },
+
+      handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            const maxDim = 1000;
+
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+
+            app.uploadedFileBuffer = {
+              name: file.name,
+              mimeType: 'image/jpeg',
+              base64: compressedBase64
+            };
+
+            document.getElementById("imagePreview").src = compressedBase64;
+            document.getElementById("previewFileName").textContent = file.name;
+            document.getElementById("fileUploadPrompt").style.display = "none";
+            document.getElementById("filePreviewContainer").style.display = "block";
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
+
+      removeSelectedFile(e) {
+        if (e) e.stopPropagation();
+        this.uploadedFileBuffer = null;
+        document.getElementById("inputExpFile").value = "";
+        document.getElementById("imagePreview").src = "";
+        document.getElementById("fileUploadPrompt").style.display = "block";
+        document.getElementById("filePreviewContainer").style.display = "none";
+      },
+
+      async submitAddExpense(e) {
+        if (e) e.preventDefault();
+        const tanggal = document.getElementById("inputExpDate").value;
+        const keperluan = document.getElementById("inputExpTitle").value.trim();
+        const kategori = document.getElementById("inputExpCategory").value;
+        const nominal = Number(document.getElementById("inputExpAmount").value) || 0;
+        const keterangan = document.getElementById("inputExpNotes").value.trim();
+
+        if (!keperluan || nominal <= 0) {
+          alert("Harap isi keperluan dan nominal dengan benar!");
+          return;
+        }
+
+        const btn = document.getElementById("btnSubmitExpense");
+        btn.disabled = true;
+        btn.textContent = "Menyimpan ke Drive...";
+
+        const expensePayload = {
+          tanggal: tanggal,
+          keperluan: keperluan,
+          kategori: kategori,
+          nominal: nominal,
+          keterangan: keterangan,
+          file: this.uploadedFileBuffer
+        };
+
+        const res = await this.callApi("addExpense", {
+          password: this.walasPassword,
+          expenseData: expensePayload
+        });
+
+        btn.disabled = false;
+        btn.textContent = "Simpan Pengeluaran";
+
+        if (res && res.success) {
+          app.data.expenses.unshift(res.data);
+          app.data.meta.totalPengeluaran += nominal;
+          app.data.meta.saldoKas = app.data.meta.totalKasMasuk - app.data.meta.totalPengeluaran;
+          app.closeModal("modalAddExpense");
+          app.renderAll();
+          app.showToast("Pengeluaran & bukti nota tersimpan di Google Drive!", "success");
+        } else {
+          app.showToast("Gagal menyimpan: " + (res ? res.message : "Error"), "error");
+        }
+      },
+
+      async deleteExpenseConfirm(expId, keperluan) {
+        if (!this.isWalas) return;
+        if (!confirm(`Hapus pengeluaran "${keperluan}"?`)) return;
+
+        const res = await this.callApi("deleteExpense", {
+          password: this.walasPassword,
+          id: expId
+        });
+
+        if (res && res.success) {
+          app.data.expenses = app.data.expenses.filter(e => e.id !== expId);
+          app.data.meta.totalPengeluaran = app.data.expenses.reduce((a, b) => a + b.nominal, 0);
+          app.data.meta.saldoKas = app.data.meta.totalKasMasuk - app.data.meta.totalPengeluaran;
+          app.renderAll();
+          app.showToast("Pengeluaran berhasil dihapus.", "info");
+        } else {
+          app.showToast("Gagal menghapus: " + (res ? res.message : "Error"), "error");
+        }
+      },
+
+      previewReceipt(imageUrl, title, subtitle) {
+        document.getElementById("receiptModalTitle").textContent = title || "Bukti Nota Pengeluaran";
+        document.getElementById("receiptModalSubtitle").textContent = subtitle || "";
+        document.getElementById("receiptModalImage").src = imageUrl;
+        document.getElementById("receiptDownloadLink").href = imageUrl;
+        this.openModal("modalViewReceipt");
+      },
+
+      showToast(msg, type = "info") {
+        const toast = document.getElementById("toastNotification");
+        document.getElementById("toastMessage").textContent = msg;
+        toast.className = `toast-box toast-${type}`;
+        toast.style.display = "flex";
+        clearTimeout(this.toastTimeout);
+        this.toastTimeout = setTimeout(() => { app.hideToast(); }, 5000);
+      },
+
+      hideToast() {
+        document.getElementById("toastNotification").style.display = "none";
+      }
+    };
+
+    // Global Functions Mapper
+    window.app = app;
+    window.handleRoleToggle = () => app.handleRoleToggle();
+    window.submitLoginWalas = (e) => app.submitLoginWalas(e);
+    window.switchTab = (t) => app.switchTab(t);
+    window.loadData = () => app.loadData();
+    window.openModal = (id) => app.openModal(id);
+    window.closeModal = (id) => app.closeModal(id);
+    window.openModalAddDate = () => app.openModalAddDate();
+    window.onDateCalendarChange = () => app.onDateCalendarChange();
+    window.submitAddDate = (e) => app.submitAddDate(e);
+    window.openModalAddExpense = () => app.openModalAddExpense();
+    window.handleFileSelect = (e) => app.handleFileSelect(e);
+    window.removeSelectedFile = (e) => app.removeSelectedFile(e);
+    window.submitAddExpense = (e) => app.submitAddExpense(e);
+    window.openEditCell = (r, c, n, d, a) => app.openEditCell(r, c, n, d, a);
+    window.setCellPreset = (amt) => app.setCellPreset(amt);
+    window.submitEditCell = (e) => app.submitEditCell(e);
+    window.handleSiswaCellClick = (name) => app.handleSiswaCellClick(name);
+    window.deleteExpenseConfirm = (id, title) => app.deleteExpenseConfirm(id, title);
+    window.previewReceipt = (u, t, s) => app.previewReceipt(u, t, s);
+    window.renderKasMatrix = () => app.renderKasMatrix();
+    window.renderExpenses = () => app.renderExpenses();
+    window.hideToast = () => app.hideToast();
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => app.init());
+    } else {
+      app.init();
+    }
+  </script>
+</body>
+</html>
