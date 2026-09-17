@@ -1142,13 +1142,11 @@
       init() {
         console.log("Kas Kelas X-3 Initializing with permanent Google Sheets URL...");
         
-        // Pulihkan session Walas jika pernah login di perangkat ini
-        const savedPass = SafeStorage.get("walas_token");
-        if (savedPass) {
-          this.walasPassword = savedPass;
-          this.isWalas = true;
-          this.updateRoleUI();
-        }
+        // Selalu jadikan tampilan awal sebagai Mode Siswa (Hanya Lihat) setiap kali web dibuka
+        this.isWalas = false;
+        this.walasPassword = "";
+        SafeStorage.remove("walas_token");
+        this.updateRoleUI();
 
         // Langsung muat data real-time dari Google Sheets
         this.loadData();
@@ -1294,7 +1292,6 @@
           btn.textContent = "Verifikasi & Masuk";
           app.walasPassword = inputPass;
           app.isWalas = true;
-          SafeStorage.set("walas_token", inputPass);
           app.closeModal("modalLoginWalas");
           app.showToast("Mode Walas Berhasil Diaktifkan! Akses input terbuka.", "success");
           app.updateRoleUI();
@@ -1308,7 +1305,6 @@
         if (res && res.success) {
           app.walasPassword = inputPass;
           app.isWalas = true;
-          SafeStorage.set("walas_token", inputPass);
           app.closeModal("modalLoginWalas");
           app.showToast("Mode Walas Berhasil Diaktifkan!", "success");
           app.updateRoleUI();
