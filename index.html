@@ -1079,6 +1079,39 @@
       return str;
     }
 
+    const DEFAULT_STUDENTS_LIST = [
+      "Abimanyu Tirta Yastra",
+      "Ahmad Royyan Zakwan Zahir Al 'Arof",
+      "Ahmad Ulil Albab Lutfi",
+      "Ahmad Wildan Malik",
+      "Akmal Ahmad Azzahi",
+      "Andakara Haikal Aksan",
+      "Aransha Hannan Nadjib",
+      "Arjuna Prawira Yuda",
+      "Asyraf Ellano Ellard Jabbar",
+      "Fadhil Alamsyah",
+      "Faiz Khoirullah Koswara",
+      "Feishal Aman Akbar Waluyan",
+      "Hafiizh London Abigail",
+      "M Rayyan Sauqi Ramadhan",
+      "M. Rezky Syahvior Ramadhan",
+      "Mochammad Fahry Azharuddin",
+      "Mochammad Ulul Azmi",
+      "Muhammad Abdillah",
+      "Muhammad Ash-Habul Kahfi",
+      "Muhammad Azrillah Hubbi El Hamdi",
+      "Muhammad Badrul Kamal",
+      "Muhammad Gusti Syahbani",
+      "Muhammad Naryama Naufal Idlan",
+      "Muhammad Rafi Andra Putro",
+      "Muhammad Reyzha Maulana Iqbal",
+      "Nizham Yahya",
+      "Paramudya Afif Adzani Firdaus",
+      "Raihan Akbar Alfarisi",
+      "Sultan Arrasyid Achmad Affirosy",
+      "Tsaqif Zefrizal Muhammad"
+    ];
+
     const app = {
       isWalas: false,
       walasPassword: "",
@@ -1087,9 +1120,19 @@
 
       data: {
         meta: { namaKelas: "X-3", targetIuran: 5000, totalSiswa: 30, saldoKas: 0, totalKasMasuk: 0, totalPengeluaran: 0 },
-        dateColumns: [],
-        students: [],
-        dateTotals: {},
+        dateColumns: [
+          { index: 3, label: "01/09/2026" },
+          { index: 4, label: "08/09/2026" },
+          { index: 5, label: "15/09/2026" }
+        ],
+        students: DEFAULT_STUDENTS_LIST.map((nama, idx) => ({
+          rowNumber: idx + 2,
+          no: idx + 1,
+          nama: nama,
+          payments: { "01/09/2026": 0, "08/09/2026": 0, "15/09/2026": 0 },
+          totalPaid: 0
+        })),
+        dateTotals: { "01/09/2026": 0, "08/09/2026": 0, "15/09/2026": 0 },
         expenses: []
       },
 
@@ -1112,25 +1155,52 @@
       },
 
       // Panggilan API Aman Universal (GET & POST)
-      async callApi(action, params = {}) {
+      async callApi(action, params = {}, forcePost = false) {
         try {
-          // Panggilan utama via GET query parameter (paling stabil & kebal CORS di semua browser HP/PC)
+          // Deteksi apakah panggilan ini membutuhkan POST:
+          // 1. Aksi addExpense selalu gunakan POST (agar mendukung data terstruktur & foto)
+          // 2. Jika ada payload file foto (di params.file maupun params.expenseData.file)
+          // 3. Jika dipanggil dengan forcePost = true
+          const hasFile = Boolean(
+            (params.file && params.file.base64) || 
+            (params.expenseData && params.expenseData.file && params.expenseData.file.base64)
+          );
+          const isPost = forcePost || action === "addExpense" || hasFile;
+
+          if (isPost) {
+            const postPayload = {
+              action: action,
+              ...params
+            };
+
+            // Pastikan jika ada expenseData, field-field utamanya juga di-spread di top level
+            // agar kompatibel dengan seluruh versi Google Apps Script
+            if (params.expenseData) {
+              if (!postPayload.tanggal) postPayload.tanggal = params.expenseData.tanggal;
+              if (!postPayload.keperluan) postPayload.keperluan = params.expenseData.keperluan;
+              if (!postPayload.kategori) postPayload.kategori = params.expenseData.kategori;
+              if (postPayload.nominal === undefined) postPayload.nominal = params.expenseData.nominal;
+              if (!postPayload.keterangan) postPayload.keterangan = params.expenseData.keterangan;
+              if (!postPayload.file && params.expenseData.file) {
+                postPayload.file = params.expenseData.file;
+              }
+            }
+
+            const res = await fetch(this.apiUrl, {
+              method: "POST",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(postPayload)
+            });
+            return await res.json();
+          }
+
+          // Untuk query ringan (getInitialData, saveKasCell, addNewPeriodColumn, deleteExpense, verifyWalas)
+          // gunakan GET query parameter (paling stabil & kebal CORS)
           const queryParts = [`action=${encodeURIComponent(action)}`, `t=${Date.now()}`];
           for (const key in params) {
             if (key !== 'action' && typeof params[key] !== 'object') {
               queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
             }
-          }
-
-          // Khusus jika ada payload besar (seperti upload bukti foto base64)
-          if (params.file && params.file.base64) {
-            const postBody = JSON.stringify({ action: action, ...params });
-            const res = await fetch(this.apiUrl, {
-              method: "POST",
-              headers: { "Content-Type": "text/plain;charset=utf-8" },
-              body: postBody
-            });
-            return await res.json();
           }
 
           const fullUrl = `${this.apiUrl}?${queryParts.join("&")}`;
@@ -1402,15 +1472,15 @@
 
             if (app.isWalas) {
               rowsHtml += `
-                <td onclick="openEditCell(${st.rowNumber}, ${col.index}, '${st.nama}', '${col.label}', ${amount})" 
+                <td onclick="openEditCell(${st.rowNumber}, ${col.index}, '${col.label}')" 
                     style="text-align: center; cursor: pointer;" 
-                    title="Klik untuk ubah kas ${st.nama}">
+                    title="Klik untuk ubah kas">
                   ${badgeHtml} ✏️
                 </td>
               `;
             } else {
               rowsHtml += `
-                <td onclick="handleSiswaCellClick('${st.nama}')" 
+                <td onclick="handleSiswaCellClick(${st.rowNumber})" 
                     style="text-align: center; cursor: pointer;" 
                     title="Mode Siswa (Hanya Lihat)">
                   ${badgeHtml}
@@ -1443,8 +1513,13 @@
         tfoot.innerHTML = footerHtml;
       },
 
-      handleSiswaCellClick(studentName) {
-        this.showToast(`Mode Siswa (Hanya Lihat): Untuk mengedit kas ${studentName}, silakan Masuk Mode Walas.`, "info");
+      handleSiswaCellClick(studentRef) {
+        let name = studentRef;
+        if (typeof studentRef === 'number') {
+          const student = (this.data.students || []).find(s => s.rowNumber === studentRef);
+          if (student) name = student.nama;
+        }
+        this.showToast(`Mode Siswa (Hanya Lihat): Untuk mengedit kas ${name}, silakan Masuk Mode Walas.`, "info");
       },
 
       renderExpenses() {
@@ -1471,7 +1546,7 @@
               <td style="font-size: 11px; color: var(--slate-600); max-width: 200px; overflow: hidden; text-overflow: ellipsis;">${exp.keterangan || '-'}</td>
               <td style="text-align: center;">
                 ${exp.urlNota ? `
-                  <button type="button" onclick="previewReceipt('${exp.urlNota}', '${exp.keperluan}', '${exp.tanggal} - ${formatRp(exp.nominal)}')" class="btn btn-outline" style="padding: 4px 8px; font-size: 11px;">
+                  <button type="button" onclick="previewExpenseById('${exp.id}')" class="btn btn-outline" style="padding: 4px 8px; font-size: 11px;">
                     👁️ Lihat Nota
                   </button>
                 ` : `<span style="color: var(--slate-400); font-size: 11px;">Tanpa Nota</span>`}
@@ -1481,7 +1556,7 @@
           if (this.isWalas) {
             html += `
               <td style="text-align: center;">
-                <button type="button" onclick="deleteExpenseConfirm('${exp.id}', '${exp.keperluan}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 11px;">
+                <button type="button" onclick="deleteExpenseById('${exp.id}')" class="btn btn-danger" style="padding: 4px 8px; font-size: 11px;">
                   🗑️ Hapus
                 </button>
               </td>
@@ -1496,6 +1571,35 @@
         tbody.innerHTML = html;
       },
 
+      previewExpenseById(expId) {
+        const exp = (this.data.expenses || []).find(e => e.id === expId);
+        if (exp && exp.urlNota) {
+          this.previewReceipt(exp.urlNota, exp.keperluan, `${exp.tanggal} - ${formatRp(exp.nominal)}`);
+        }
+      },
+
+      async deleteExpenseById(expId) {
+        if (!this.isWalas) return;
+        const exp = (this.data.expenses || []).find(e => e.id === expId);
+        const title = exp ? exp.keperluan : "pengeluaran ini";
+        if (!confirm(`Hapus pengeluaran "${title}"?`)) return;
+
+        const res = await this.callApi("deleteExpense", {
+          password: this.walasPassword,
+          id: expId
+        });
+
+        if (res && res.success) {
+          app.data.expenses = app.data.expenses.filter(e => e.id !== expId);
+          app.data.meta.totalPengeluaran = app.data.expenses.reduce((a, b) => a + b.nominal, 0);
+          app.data.meta.saldoKas = app.data.meta.totalKasMasuk - app.data.meta.totalPengeluaran;
+          app.renderAll();
+          app.showToast("Pengeluaran berhasil dihapus.", "info");
+        } else {
+          app.showToast("Gagal menghapus: " + (res ? res.message : "Error"), "error");
+        }
+      },
+
       openModal(modalId) {
         const el = document.getElementById(modalId);
         if (el) el.style.display = "flex";
@@ -1505,12 +1609,23 @@
         if (el) el.style.display = "none";
       },
 
-      openEditCell(studentRow, dateColIndex, studentName, dateLabel, currentAmount) {
+      openEditCell(studentRow, dateColIndex, dateLabel, studentName, currentAmount) {
         if (!this.isWalas) { this.handleRoleToggle(); return; }
-        this.activeEditingCell = { studentRow, dateColIndex, studentName, dateLabel };
-        document.getElementById("modalCellStudentName").textContent = studentName;
+        
+        let sName = studentName;
+        let cAmount = currentAmount;
+        const student = (this.data.students || []).find(s => s.rowNumber === studentRow);
+        if (student) {
+          sName = student.nama;
+          if (cAmount === undefined) {
+            cAmount = (student.payments && student.payments[dateLabel]) || 0;
+          }
+        }
+
+        this.activeEditingCell = { studentRow, dateColIndex, studentName: sName, dateLabel };
+        document.getElementById("modalCellStudentName").textContent = sName || "-";
         document.getElementById("modalCellDateLabel").textContent = formatColDate(dateLabel);
-        document.getElementById("inputCellAmount").value = currentAmount || "";
+        document.getElementById("inputCellAmount").value = cAmount || "";
         this.openModal("modalEditCell");
         setTimeout(() => document.getElementById("inputCellAmount").focus(), 100);
       },
@@ -1697,7 +1812,7 @@
 
         const btn = document.getElementById("btnSubmitExpense");
         btn.disabled = true;
-        btn.textContent = "Menyimpan ke Drive...";
+        btn.textContent = this.uploadedFileBuffer ? "Mengunggah Nota ke Drive..." : "Menyimpan Pengeluaran...";
 
         const expensePayload = {
           tanggal: tanggal,
@@ -1710,8 +1825,14 @@
 
         const res = await this.callApi("addExpense", {
           password: this.walasPassword,
+          tanggal: tanggal,
+          keperluan: keperluan,
+          kategori: kategori,
+          nominal: nominal,
+          keterangan: keterangan,
+          file: this.uploadedFileBuffer,
           expenseData: expensePayload
-        });
+        }, true);
 
         btn.disabled = false;
         btn.textContent = "Simpan Pengeluaran";
@@ -1720,6 +1841,14 @@
           app.data.expenses.unshift(res.data);
           app.data.meta.totalPengeluaran += nominal;
           app.data.meta.saldoKas = app.data.meta.totalKasMasuk - app.data.meta.totalPengeluaran;
+
+          // Bersihkan isian form dan file preview
+          app.uploadedFileBuffer = null;
+          document.getElementById("inputExpTitle").value = "";
+          document.getElementById("inputExpAmount").value = "";
+          document.getElementById("inputExpNotes").value = "";
+          app.removeSelectedFile();
+
           app.closeModal("modalAddExpense");
           app.renderAll();
           app.showToast("Pengeluaran & bukti nota tersimpan di Google Drive!", "success");
@@ -1785,12 +1914,14 @@
     window.handleFileSelect = (e) => app.handleFileSelect(e);
     window.removeSelectedFile = (e) => app.removeSelectedFile(e);
     window.submitAddExpense = (e) => app.submitAddExpense(e);
-    window.openEditCell = (r, c, n, d, a) => app.openEditCell(r, c, n, d, a);
+    window.openEditCell = (r, c, d, n, a) => app.openEditCell(r, c, d, n, a);
     window.setCellPreset = (amt) => app.setCellPreset(amt);
     window.submitEditCell = (e) => app.submitEditCell(e);
-    window.handleSiswaCellClick = (name) => app.handleSiswaCellClick(name);
+    window.handleSiswaCellClick = (ref) => app.handleSiswaCellClick(ref);
     window.deleteExpenseConfirm = (id, title) => app.deleteExpenseConfirm(id, title);
+    window.deleteExpenseById = (id) => app.deleteExpenseById(id);
     window.previewReceipt = (u, t, s) => app.previewReceipt(u, t, s);
+    window.previewExpenseReceipt = (id) => app.previewExpenseReceipt(id);
     window.renderKasMatrix = () => app.renderKasMatrix();
     window.renderExpenses = () => app.renderExpenses();
     window.hideToast = () => app.hideToast();
