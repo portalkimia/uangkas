@@ -1398,7 +1398,7 @@
             <div class="list-item">
               <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
                 ${exp.urlNota ? `
-                  <button type="button" onclick="previewReceipt('${exp.urlNota}', '${exp.keperluan}', '${exp.tanggal} - ${formatRp(exp.nominal)}')" style="border: 1px solid var(--slate-200); border-radius: 6px; padding: 0; background: none; cursor: pointer; flex-shrink: 0;">
+                  <button type="button" onclick="previewExpenseById('${exp.id}')" style="border: 1px solid var(--slate-200); border-radius: 6px; padding: 0; background: none; cursor: pointer; flex-shrink: 0;" title="Lihat Bukti Nota">
                     <img src="${exp.urlNota}" alt="Nota" style="width: 36px; height: 36px; border-radius: 6px; object-fit: cover; display: block;">
                   </button>
                 ` : `<div style="width: 36px; height: 36px; border-radius: 6px; background: var(--slate-100); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;">🧾</div>`}
@@ -1568,10 +1568,15 @@
       },
 
       previewExpenseById(expId) {
-        const exp = (this.data.expenses || []).find(e => e.id === expId);
+        const exp = (this.data.expenses || []).find(e => String(e.id) === String(expId));
         if (exp && exp.urlNota) {
           this.previewReceipt(exp.urlNota, exp.keperluan, `${exp.tanggal} - ${formatRp(exp.nominal)}`);
+        } else {
+          this.showToast("Bukti nota tidak ditemukan untuk pengeluaran ini.", "info");
         }
+      },
+      previewExpenseReceipt(expId) {
+        this.previewExpenseById(expId);
       },
 
       async deleteExpenseById(expId) {
@@ -1917,7 +1922,8 @@
     window.deleteExpenseConfirm = (id, title) => app.deleteExpenseConfirm(id, title);
     window.deleteExpenseById = (id) => app.deleteExpenseById(id);
     window.previewReceipt = (u, t, s) => app.previewReceipt(u, t, s);
-    window.previewExpenseReceipt = (id) => app.previewExpenseReceipt(id);
+    window.previewExpenseById = (id) => app.previewExpenseById(id);
+    window.previewExpenseReceipt = (id) => app.previewExpenseById(id);
     window.renderKasMatrix = () => app.renderKasMatrix();
     window.renderExpenses = () => app.renderExpenses();
     window.hideToast = () => app.hideToast();
